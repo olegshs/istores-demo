@@ -1,0 +1,35 @@
+services:
+    laravel:
+        container_name: demo-laravel
+        image: demo-laravel
+        build:
+            context: .
+            dockerfile: docker/laravel/Dockerfile
+        ports:
+            - "127.0.0.1:8000:8000"
+        volumes:
+            - .:/var/www/istores-demo
+        depends_on:
+            - mysql
+            - redis
+
+    mysql:
+        container_name: demo-mysql
+        image: mysql:8
+        environment:
+            MYSQL_RANDOM_ROOT_PASSWORD: yes
+            MYSQL_DATABASE: demo
+            MYSQL_USER: demo
+            MYSQL_PASSWORD: rk25bibmWPcAGe3N
+        ports:
+            - "127.0.0.1:8010:3306"
+        volumes:
+            - ./storage/mysql:/var/lib/mysql
+
+    redis:
+        container_name: demo-redis
+        image: redis:7
+        ports:
+            - "127.0.0.1:8020:6379"
+        volumes:
+            - ./storage/redis:/data
