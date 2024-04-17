@@ -45,7 +45,7 @@ const createProduct = () => {
 <template>
     <form @submit.prevent="createProduct" class="mt-6 space-y-6">
         <div>
-            <InputLabel for="product-slug-input" value="Slug" required/>
+            <InputLabel for="product-slug-input" :value="$t('ui.slug')" required/>
 
             <TextInput
                 id="product-slug-input"
@@ -59,7 +59,7 @@ const createProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-name-input" value="Name" required/>
+            <InputLabel for="product-name-input" :value="$t('ui.name')" required/>
 
             <TextInput
                 id="product-name-input"
@@ -73,7 +73,7 @@ const createProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-description-input" value="Description"/>
+            <InputLabel for="product-description-input" :value="$t('ui.description')"/>
 
             <TextArea
                 id="product-description-input"
@@ -85,7 +85,7 @@ const createProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-price-input" value="Price" required/>
+            <InputLabel for="product-price-input" :value="$t('ui.products.price')" required/>
 
             <TextInput
                 id="product-price-input"
@@ -100,7 +100,9 @@ const createProduct = () => {
         </div>
 
         <div class="flex items-center gap-4">
-            <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <PrimaryButton :disabled="form.processing">
+                {{ $t('ui.save') }}
+            </PrimaryButton>
 
             <Transition
                 enter-active-class="transition ease-in-out"
@@ -108,7 +110,9 @@ const createProduct = () => {
                 leave-active-class="transition ease-in-out"
                 leave-to-class="opacity-0"
             >
-                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
+                    {{ $t('ui.saved') }}
+                </p>
             </Transition>
         </div>
     </form>

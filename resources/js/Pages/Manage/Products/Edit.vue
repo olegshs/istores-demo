@@ -10,12 +10,12 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head :title="`Edit Product #${product.id}`"/>
+    <Head :title="$t('ui.products.edit', {id: product.id})"/>
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Edit Product #{{ product.id }}
+                {{ $t('ui.products.edit', {id: product.id}) }}
             </h2>
         </template>
 

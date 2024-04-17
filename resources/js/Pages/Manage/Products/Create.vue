@@ -5,12 +5,12 @@ import ProductCreateForm from "./Partials/ProductCreateForm.vue";
 </script>
 
 <template>
-    <Head title="Create Product"/>
+    <Head :title="$t('ui.products.create')"/>
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Create Product
+                {{ $t('ui.products.create') }}
             </h2>
         </template>
 

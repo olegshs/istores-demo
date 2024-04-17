@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require('laravel-vue-i18n/mix');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -16,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ])
     .webpackConfig(require('./webpack.config'))
+    .i18n()
     .vue();

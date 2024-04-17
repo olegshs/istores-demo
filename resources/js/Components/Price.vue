@@ -15,8 +15,7 @@ const price = computed(() =>
 </script>
 
 <template>
-    <span style="white-space:nowrap;">
-        &#8362;
-        {{ price }}
+    <span dir="ltr">
+        &#8362;&hairsp;{{ price }}
     </span>
 </template>

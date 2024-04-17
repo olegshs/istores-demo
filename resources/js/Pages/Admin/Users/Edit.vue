@@ -16,12 +16,12 @@ const user = props.user;
 </script>
 
 <template>
-    <Head :title="`Edit User #${user.id}`"/>
+    <Head :title="$t('ui.users.edit', {id: user.id})"/>
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Edit User #{{ user.id }}
+                {{ $t('ui.users.edit', {id: user.id}) }}
             </h2>
         </template>
 
@@ -48,20 +48,3 @@ const user = props.user;
         </div>
     </AuthenticatedLayout>
 </template>
-
-<style>
-.btn {
-    @apply font-bold py-2 px-4 rounded;
-}
-
-.btn-blue {
-    @apply bg-blue-500 text-white;
-}
-
-.btn-blue:active {
-}
-
-.btn-blue:hover {
-    @apply bg-blue-700;
-}
-</style>

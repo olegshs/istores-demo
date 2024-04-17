@@ -58,12 +58,12 @@ const closeModal = () => {
 </script>
 
 <template>
-    <Head title="Users"/>
+    <Head :title="$t('ui.users.title')"/>
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Users
+                {{ $t('ui.users.title') }}
             </h2>
         </template>
 
@@ -73,22 +73,22 @@ const closeModal = () => {
                 <Table>
                     <TableHead>
                         <HeadColumn>
-                            ID&nbsp;&#9650;
+                            {{ $t('ui.id') }}&nbsp;&#9650;
                         </HeadColumn>
                         <HeadColumn>
-                            Name
+                            {{ $t('ui.name') }}
                         </HeadColumn>
                         <HeadColumn>
-                            E-mail
+                            {{ $t('ui.email') }}
                         </HeadColumn>
                         <HeadColumn>
-                            Registered at
+                            {{ $t('ui.users.created_at') }}
                         </HeadColumn>
                         <HeadColumn class="hidden lg:table-cell">
-                            Roles
+                            {{ $t('ui.users.roles') }}
                         </HeadColumn>
                         <HeadColumn class="w-1">
-                            Actions
+                            {{ $t('ui.actions') }}
                         </HeadColumn>
                     </TableHead>
 
@@ -114,13 +114,13 @@ const closeModal = () => {
                                 <div class="flex gap-1">
                                     <PrimaryButton @click="switchStore(user.id)" :disabled="currentStore.id === user.id"
                                                    class="text-sm !px-3 !py-1">
-                                        Switch
+                                        {{ $t('ui.users.switch') }}
                                     </PrimaryButton>
                                     <LinkButton :href="route('admin.users.edit', user.id)" class="text-sm !px-3 !py-1">
-                                        Edit
+                                        {{ $t('ui.edit') }}
                                     </LinkButton>
                                     <DangerButton @click="confirmUserDeletion(user)" class="text-sm !px-3 !py-1">
-                                        Delete
+                                        {{ $t('ui.delete') }}
                                     </DangerButton>
                                 </div>
                             </Column>
@@ -132,7 +132,7 @@ const closeModal = () => {
                     <div class="flex-1">
                         <Pagination :links="props.users.links"/>
                     </div>
-                    <div class="px-4 py-2 justify-end">Total: {{ total }}</div>
+                    <div class="px-4 py-2 justify-end">{{ $t('ui.total') }}: {{ total }}</div>
                 </div>
 
             </div>
@@ -141,16 +141,15 @@ const closeModal = () => {
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">
-                    Are you sure you want to delete User #{{ userToDelete.id }}?
+                    {{ $t('ui.users.delete_confirm.text', {id: userToDelete.id}) }}
                 </h2>
-
                 <p class="mt-1 text-sm text-gray-600">
-                    Once the account is deleted, all of its resources and data will be permanently deleted.
+                    {{ $t('ui.users.delete_confirm.description') }}
                 </p>
 
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal">
-                        Cancel
+                        {{ $t('ui.cancel') }}
                     </SecondaryButton>
 
                     <DangerButton
@@ -159,7 +158,7 @@ const closeModal = () => {
                         :disabled="userDeleteForm.processing"
                         @click="deleteUser"
                     >
-                        Delete User
+                        {{ $t('ui.users.delete') }}
                     </DangerButton>
                 </div>
             </div>

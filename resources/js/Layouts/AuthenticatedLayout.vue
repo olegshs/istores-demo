@@ -32,33 +32,33 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-2 lg:space-x-8 sm:-my-px sm:ms-10 md:flex">
+                            <div class="hidden md:flex gap-2 lg:gap-8 sm:-my-px sm:ms-10">
                                 <NavLink :href="route('dashboard')"
                                          :active="route().current('dashboard')">
-                                    Dashboard
+                                    {{ $t('ui.dashboard.title') }}
                                 </NavLink>
 
                                 <NavLink :href="route('manage.categories.index')"
                                          :active="route().current('manage.categories.index')">
-                                    Categories
+                                    {{ $t('ui.categories.title') }}
                                 </NavLink>
 
                                 <NavLink :href="route('manage.products.index')"
                                          :active="route().current('manage.products.index')">
-                                    Products
+                                    {{ $t('ui.products.title') }}
                                 </NavLink>
 
                                 <NavLink v-if="isAdmin"
                                          :href="route('admin.users.index')"
                                          :active="route().current('admin.users.index')">
-                                    Users
+                                    {{ $t('ui.users.title') }}
                                 </NavLink>
                             </div>
                         </div>
 
                         <!-- Current store -->
                         <div v-if="isAdmin" class="flex items-center text-sm text-gray-500 me-4 md:me-0">
-                            Store:
+                            {{ $t('ui.stores.current') }}:
                             <Link :href="route('stores.show', currentStore.id)"
                                   class="font-medium ms-1 hover:text-gray-700">
                                 {{ currentStore.info.name }}
@@ -94,9 +94,11 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile</DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')">
+                                            {{ $t('ui.profile') }}
+                                        </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            {{ $t('ui.logout') }}
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -144,22 +146,22 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')"
                                            :active="route().current('dashboard')">
-                            Dashboard
+                            {{ $t('ui.dashboard.title') }}
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('manage.categories.index')"
                                            :active="route().current('manage.categories.index')">
-                            Categories
+                            {{ $t('ui.categories.title') }}
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('manage.products.index')"
                                            :active="route().current('manage.products.index')">
-                            Products
+                            {{ $t('ui.products.title') }}
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('admin.users.index')"
                                            :active="route().current('admin.users.index')">
-                            Users
+                            {{ $t('ui.users.title') }}
                         </ResponsiveNavLink>
                     </div>
 
@@ -174,10 +176,10 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                {{ $t('ui.profile') }}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                {{ $t('ui.logout') }}
                             </ResponsiveNavLink>
                         </div>
                     </div>

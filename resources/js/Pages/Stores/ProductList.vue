@@ -98,10 +98,10 @@ const closeCart = () => {
 
                     <div>
                         <PrimaryButton v-if="!hasInCart(product)" @click="addToCart(product)">
-                            Add to cart
+                            {{ $t('ui.cart.add' )}}
                         </PrimaryButton>
                         <LinkButton v-else :href="route('stores.cart.checkout', store.id)">
-                            Go to cart
+                            {{ $t('ui.cart.open' )}}
                         </LinkButton>
                     </div>
                 </div>

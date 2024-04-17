@@ -45,25 +45,25 @@ const closeModal = () => {
     <Table>
         <TableHead>
             <HeadColumn>
-                ID&nbsp;&#9660;
+                {{ $t('ui.id') }}&nbsp;&#9660;
             </HeadColumn>
             <HeadColumn>
-                Slug
+                {{ $t('ui.slug') }}
             </HeadColumn>
             <HeadColumn>
-                Name
+                {{ $t('ui.name') }}
             </HeadColumn>
             <HeadColumn class="hidden lg:table-cell">
-                Description
+                {{ $t('ui.description') }}
             </HeadColumn>
             <HeadColumn class="hidden lg:table-cell">
-                Categories
+                {{ $t('ui.categories.title') }}
             </HeadColumn>
             <HeadColumn>
-                Price
+                {{ $t('ui.products.price') }}
             </HeadColumn>
             <HeadColumn class="w-1">
-                Actions
+                {{ $t('ui.actions') }}
             </HeadColumn>
         </TableHead>
         <TableBody>
@@ -89,10 +89,10 @@ const closeModal = () => {
                 <Column class="w-1">
                     <div class="flex gap-1">
                         <LinkButton :href="route('manage.products.edit', product.id)" class="text-sm !px-3 !py-1">
-                            Edit
+                            {{ $t('ui.edit') }}
                         </LinkButton>
                         <DangerButton @click="confirmDeletion(product)" class="text-sm !px-3 !py-1">
-                            Delete
+                            {{ $t('ui.delete') }}
                         </DangerButton>
                     </div>
                 </Column>
@@ -104,18 +104,18 @@ const closeModal = () => {
         <div class="flex-1">
             <Pagination :links="props.products.links"/>
         </div>
-        <div class="px-4 py-2 justify-end">Total: {{ total }}</div>
+        <div class="px-4 py-2 justify-end">{{ $t('ui.total') }}: {{ total }}</div>
     </div>
 
     <Modal :show="confirmingDeletion" @close="closeModal">
         <div class="p-6">
             <h2 class="text-lg font-medium text-gray-900">
-                Are you sure you want to delete Product #{{ productToDelete.id }}?
+                {{ $t('ui.products.delete_confirm.text', {id: productToDelete.id}) }}
             </h2>
 
             <div class="mt-6 flex justify-end">
                 <SecondaryButton @click="closeModal">
-                    Cancel
+                    {{ $t('ui.cancel') }}
                 </SecondaryButton>
 
                 <DangerButton
@@ -124,7 +124,7 @@ const closeModal = () => {
                     :disabled="deleteForm.processing"
                     @click="deleteProduct"
                 >
-                    Delete Product
+                    {{ $t('ui.products.delete') }}
                 </DangerButton>
             </div>
         </div>

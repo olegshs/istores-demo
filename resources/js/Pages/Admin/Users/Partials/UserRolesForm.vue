@@ -47,7 +47,9 @@ const save = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">User Roles</h2>
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ $t('ui.user.roles') }}
+            </h2>
         </header>
 
         <div class="mt-6 space-y-6">
@@ -68,7 +70,9 @@ const save = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton @click="save" :disabled="saving">Save</PrimaryButton>
+                <PrimaryButton @click="save" :disabled="saving">
+                    {{ $t('ui.save') }}
+                </PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -76,7 +80,9 @@ const save = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="saved" class="text-sm text-gray-600">Saved.</p>
+                    <p v-if="saved" class="text-sm text-gray-600">
+                        {{ $t('ui.saved') }}
+                    </p>
                 </Transition>
             </div>
         </div>

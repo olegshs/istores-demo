@@ -26,16 +26,18 @@ const updateUser = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">
+                {{ $t('ui.users.profile.title') }}
+            </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Update profile information and email address.
+                {{ $t('ui.users.profile.description') }}
             </p>
         </header>
 
         <form @submit.prevent="updateUser" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="id" value="ID"/>
+                <InputLabel for="id" :value="$t('ui.id')"/>
 
                 <TextInput
                     id="id"
@@ -47,7 +49,7 @@ const updateUser = () => {
             </div>
 
             <div>
-                <InputLabel for="name" value="Name" required/>
+                <InputLabel for="name" :value="$t('ui.name')" required/>
 
                 <TextInput
                     id="name"
@@ -61,7 +63,7 @@ const updateUser = () => {
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" required/>
+                <InputLabel for="email" :value="$t('ui.email')" required/>
 
                 <TextInput
                     id="email"
@@ -75,7 +77,7 @@ const updateUser = () => {
             </div>
 
             <div>
-                <InputLabel for="created_at" value="Registered at"/>
+                <InputLabel for="created_at" :value="$t('ui.users.created_at')"/>
 
                 <TextInput
                     id="created_at"
@@ -87,7 +89,7 @@ const updateUser = () => {
             </div>
 
             <div>
-                <InputLabel for="updated_at" value="Updated at"/>
+                <InputLabel for="updated_at" :value="$t('ui.updated_at')"/>
 
                 <TextInput
                     id="updated_at"
@@ -99,7 +101,9 @@ const updateUser = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton :disabled="form.processing">
+                    {{ $t('ui.save') }}
+                </PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -107,7 +111,9 @@ const updateUser = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
+                        {{ $t('ui.saved') }}
+                    </p>
                 </Transition>
             </div>
         </form>

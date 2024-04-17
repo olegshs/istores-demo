@@ -41,7 +41,7 @@ const updateCategory = () => {
 <template>
     <form @submit.prevent="updateCategory" class="mt-6 space-y-6">
         <div>
-            <InputLabel for="category-id-input" value="ID"/>
+            <InputLabel for="category-id-input" :value="$t('ui.id')"/>
 
             <TextInput
                 id="category-id-input"
@@ -53,7 +53,7 @@ const updateCategory = () => {
         </div>
 
         <div>
-            <InputLabel for="category-slug-input" value="Slug" required/>
+            <InputLabel for="category-slug-input" :value="$t('ui.slug')" required/>
 
             <TextInput
                 id="category-slug-input"
@@ -68,7 +68,7 @@ const updateCategory = () => {
         </div>
 
         <div>
-            <InputLabel for="category-name-input" value="Name" required/>
+            <InputLabel for="category-name-input" :value="$t('ui.name')" required/>
 
             <TextInput
                 id="category-name-input"
@@ -82,7 +82,7 @@ const updateCategory = () => {
         </div>
 
         <div>
-            <InputLabel for="category-description-input" value="Description"/>
+            <InputLabel for="category-description-input" :value="$t('ui.description')"/>
 
             <TextArea
                 id="category-description-input"
@@ -94,7 +94,7 @@ const updateCategory = () => {
         </div>
 
         <div>
-            <InputLabel for="category-created_at-input" value="Created at"/>
+            <InputLabel for="category-created_at-input" :value="$t('ui.created_at')"/>
 
             <TextInput
                 id="category-created_at-input"
@@ -106,7 +106,7 @@ const updateCategory = () => {
         </div>
 
         <div>
-            <InputLabel for="category-updated_at-input" value="Updated at"/>
+            <InputLabel for="category-updated_at-input" :value="$t('ui.updated_at')"/>
 
             <TextInput
                 id="category-updated_at-input"
@@ -118,7 +118,9 @@ const updateCategory = () => {
         </div>
 
         <div class="flex items-center gap-4">
-            <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <PrimaryButton :disabled="form.processing">
+                {{ $t('ui.save') }}
+            </PrimaryButton>
 
             <Transition
                 enter-active-class="transition ease-in-out"
@@ -126,7 +128,9 @@ const updateCategory = () => {
                 leave-active-class="transition ease-in-out"
                 leave-to-class="opacity-0"
             >
-                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
+                    {{ $t('ui.saved') }}
+                </p>
             </Transition>
         </div>
     </form>

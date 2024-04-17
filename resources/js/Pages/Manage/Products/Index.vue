@@ -10,12 +10,12 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Products"/>
+    <Head :title="$t('ui.products.title')"/>
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Products
+                {{ $t('ui.products.title') }}
             </h2>
         </template>
 
@@ -23,12 +23,12 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                 <LinkButton :href="route('manage.products.create')">
-                    Create Product
+                    {{ $t('ui.products.create') }}
                 </LinkButton>
 
                 <ProductList v-if="products.data.length > 0"/>
                 <div v-else>
-                    No products have been created yet.
+                    {{ $t('ui.products.empty') }}
                 </div>
 
             </div>

@@ -15,7 +15,7 @@ const props = defineProps({
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Categories
+                {{ $t('ui.categories.title') }}
             </h2>
         </template>
 
@@ -23,12 +23,12 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                 <LinkButton :href="route('manage.categories.create')">
-                    Create Category
+                    {{ $t('ui.categories.create') }}
                 </LinkButton>
 
                 <CategoryList v-if="categories.data.length > 0"/>
                 <div v-else>
-                    No categories have been created yet.
+                    {{ $t('ui.categories.empty') }}
                 </div>
 
             </div>

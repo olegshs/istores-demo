@@ -42,7 +42,7 @@ const updateProduct = () => {
 <template>
     <form @submit.prevent="updateProduct" class="mt-6 space-y-6">
         <div>
-            <InputLabel for="product-id-input" value="ID"/>
+            <InputLabel for="product-id-input" :value="$t('ui.id')"/>
 
             <TextInput
                 id="product-id-input"
@@ -54,7 +54,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-slug-input" value="Slug" required/>
+            <InputLabel for="product-slug-input" :value="$t('ui.slug')" required/>
 
             <TextInput
                 id="product-slug-input"
@@ -69,7 +69,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-name-input" value="Name" required/>
+            <InputLabel for="product-name-input" :value="$t('ui.name')" required/>
 
             <TextInput
                 id="product-name-input"
@@ -83,7 +83,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-description-input" value="Description"/>
+            <InputLabel for="product-description-input" :value="$t('ui.description')"/>
 
             <TextArea
                 id="product-description-input"
@@ -95,7 +95,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-price-input" value="Price" required/>
+            <InputLabel for="product-price-input" :value="$t('ui.products.price')" required/>
 
             <TextInput
                 id="product-price-input"
@@ -110,7 +110,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-created_at-input" value="Created at"/>
+            <InputLabel for="product-created_at-input" :value="$t('ui.created_at')"/>
 
             <TextInput
                 id="product-created_at-input"
@@ -122,7 +122,7 @@ const updateProduct = () => {
         </div>
 
         <div>
-            <InputLabel for="product-updated_at-input" value="Updated at"/>
+            <InputLabel for="product-updated_at-input" :value="$t('ui.updated_at')"/>
 
             <TextInput
                 id="product-updated_at-input"
@@ -134,7 +134,9 @@ const updateProduct = () => {
         </div>
 
         <div class="flex items-center gap-4">
-            <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <PrimaryButton :disabled="form.processing">
+                {{ $t('ui.save') }}
+            </PrimaryButton>
 
             <Transition
                 enter-active-class="transition ease-in-out"
@@ -142,7 +144,9 @@ const updateProduct = () => {
                 leave-active-class="transition ease-in-out"
                 leave-to-class="opacity-0"
             >
-                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
+                    {{ $t('ui.saved') }}
+                </p>
             </Transition>
         </div>
     </form>

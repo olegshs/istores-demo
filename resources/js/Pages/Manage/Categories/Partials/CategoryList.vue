@@ -45,19 +45,19 @@ const closeModal = () => {
     <Table>
         <TableHead>
             <HeadColumn>
-                ID
+                {{ $t('ui.id') }}
             </HeadColumn>
             <HeadColumn>
-                Slug
+                {{ $t('ui.slug') }}
             </HeadColumn>
             <HeadColumn>
-                Name&nbsp;&#9650;
+                {{ $t('ui.name') }}&nbsp;&#9650;
             </HeadColumn>
             <HeadColumn class="hidden lg:table-cell">
-                Description
+                {{ $t('ui.description') }}
             </HeadColumn>
             <HeadColumn class="w-1">
-                Actions
+                {{ $t('ui.actions') }}
             </HeadColumn>
         </TableHead>
         <TableBody>
@@ -77,10 +77,10 @@ const closeModal = () => {
                 <Column class="w-1">
                     <div class="flex gap-1">
                         <LinkButton :href="route('manage.categories.edit', category.id)" class="text-sm !px-3 !py-1">
-                            Edit
+                            {{ $t('ui.edit') }}
                         </LinkButton>
                         <DangerButton @click="confirmDeletion(category)" class="text-sm !px-3 !py-1">
-                            Delete
+                            {{ $t('ui.delete') }}
                         </DangerButton>
                     </div>
                 </Column>
@@ -92,18 +92,18 @@ const closeModal = () => {
         <div class="flex-1">
             <Pagination :links="props.categories.links"/>
         </div>
-        <div class="px-4 py-2 justify-end">Total: {{ total }}</div>
+        <div class="px-4 py-2 justify-end">{{ $t('ui.total') }}: {{ total }}</div>
     </div>
 
     <Modal :show="confirmingDeletion" @close="closeModal">
         <div class="p-6">
             <h2 class="text-lg font-medium text-gray-900">
-                Are you sure you want to delete Category #{{ categoryToDelete.id }}?
+                {{ $t('ui.categories.delete_confirm.text', {id: categoryToDelete.id}) }}
             </h2>
 
             <div class="mt-6 flex justify-end">
                 <SecondaryButton @click="closeModal">
-                    Cancel
+                    {{ $t('ui.cancel') }}
                 </SecondaryButton>
 
                 <DangerButton
@@ -112,7 +112,7 @@ const closeModal = () => {
                     :disabled="deleteForm.processing"
                     @click="deleteCategory"
                 >
-                    Delete Category
+                    {{ $t('ui.categories.delete') }}
                 </DangerButton>
             </div>
         </div>

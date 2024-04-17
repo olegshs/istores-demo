@@ -11,7 +11,7 @@ const store = usePage().props.store;
         <nav class="bg-white shadow">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
-                    <div class="flex flex-1 items-center space-x-6">
+                    <div class="flex flex-1 gap-6 items-center">
                         <!-- Logo -->
                         <div class="shrink-0">
                             <Link :href="route('stores.index')">
@@ -27,18 +27,18 @@ const store = usePage().props.store;
                             </h1>
                         </div>
 
-                        <div v-if="$page.props.auth.user" class="space-x-6 pe-6 text-sm">
+                        <div v-if="$page.props.auth.user" class="flex gap-6 pe-6 text-sm">
                             <Link :href="route('dashboard')" class="font-semibold text-gray-500 hover:text-gray-700">
-                                Dashboard
+                                {{ $t('ui.dashboard.title') }}
                             </Link>
                         </div>
-                        <div v-else class="space-x-6 pe-6 text-sm">
+                        <div v-else class="flex gap-6 pe-6 text-sm">
                             <Link :href="route('register')" class="font-semibold text-gray-500 hover:text-gray-700">
-                                Register
+                                {{ $t('ui.register') }}
                             </Link>
 
                             <Link :href="route('login')" class="font-semibold text-gray-500 hover:text-gray-700">
-                                Log In
+                                {{ $t('ui.login') }}
                             </Link>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ const store = usePage().props.store;
             <div class="border-t">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
-                        <div class="flex flex-1 -my-px space-x-6">
+                        <div class="flex flex-1 gap-6 -my-px">
                             <NavLink v-for="category in store.categories"
                                      :href="route('stores.show.category', [store.id, category.slug])"
                                      :active="route().current('stores.show.category', [store.id, category.slug])">

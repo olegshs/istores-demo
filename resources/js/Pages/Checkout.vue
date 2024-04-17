@@ -46,14 +46,14 @@ const submitOrder = () => {
 </script>
 
 <template>
-    <Head title="Checkout"/>
+    <Head :title="$t('ui.checkout.title')"/>
 
     <StoreLayout>
         <div class="p-6 text-gray-900 bg-white shadow sm:rounded-lg">
             <section>
                 <header>
                     <h2 class="p-2 text-xl font-medium text-gray-900">
-                        Cart
+                        {{ $t('ui.cart.title') }}
                     </h2>
                 </header>
                 <div v-if="order.products.length > 0">
@@ -82,7 +82,7 @@ const submitOrder = () => {
                             </div>
                             <div class="w-36 p-2 pe-0 text-right">
                                 <DangerButton @click="deleteProduct(orderProduct)">
-                                    Remove
+                                    {{ $t('ui.cart.remove') }}
                                 </DangerButton>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ const submitOrder = () => {
                             <div class="w-36 p-2 text-right">
                             </div>
                             <div class="w-36 p-2 text-right">
-                                Total:
+                                {{ $t('ui.cart.total') }}:
                             </div>
                             <div class="w-36 p-2 text-right">
                                 <Price :value="getTotal()"/>
@@ -105,7 +105,7 @@ const submitOrder = () => {
                     </div>
                 </div>
                 <div v-else class="p-2 text-gray-500">
-                    <p>Your cart is empty.</p>
+                    <p>{{ $t('ui.cart.empty') }}</p>
                 </div>
             </section>
         </div>
@@ -114,12 +114,12 @@ const submitOrder = () => {
             <section class="max-w-xl">
                 <header>
                     <h2 class="p-2 text-xl font-medium text-gray-900">
-                        Order Details
+                        {{ $t('ui.checkout.details.title') }}
                     </h2>
                 </header>
                 <form class="p-2 py-4 space-y-6">
                     <div>
-                        <InputLabel for="order-details-name-input" value="Name" required/>
+                        <InputLabel for="order-details-name-input" :value="$t('ui.checkout.details.name')" required/>
 
                         <TextInput
                             id="order-details-name-input"
@@ -130,7 +130,7 @@ const submitOrder = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel for="order-details-email-input" value="Email" required/>
+                        <InputLabel for="order-details-email-input" :value="$t('ui.checkout.details.email')" required/>
 
                         <TextInput
                             id="order-details-email-input"
@@ -141,7 +141,7 @@ const submitOrder = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel for="order-details-phone-input" value="Phone" required/>
+                        <InputLabel for="order-details-phone-input" :value="$t('ui.checkout.details.phone')" required/>
 
                         <TextInput
                             id="order-details-phone-input"
@@ -152,7 +152,7 @@ const submitOrder = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel for="order-details-address-input" value="Address" required/>
+                        <InputLabel for="order-details-address-input" :value="$t('ui.checkout.details.address')" required/>
 
                         <TextArea
                             id="order-details-address-input"
@@ -162,7 +162,7 @@ const submitOrder = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel for="order-details-comment-input" value="Comment"/>
+                        <InputLabel for="order-details-comment-input" :value="$t('ui.checkout.details.comment')"/>
 
                         <TextArea
                             id="order-details-comment-input"
@@ -178,12 +178,12 @@ const submitOrder = () => {
             <section class="max-w-xl">
                 <header>
                     <h2 class="p-2 text-xl font-medium text-gray-900">
-                        Pay
+                        {{ $t('ui.checkout.pay.title') }}
                     </h2>
                 </header>
                 <div class="p-2 space-y-6">
                     <PrimaryButton @click="submitOrder">
-                        Pay with a credit card
+                        {{ $t('ui.checkout.pay.card') }}
                     </PrimaryButton>
                 </div>
             </section>

@@ -31,7 +31,7 @@ const deleteProduct = (orderProduct) => {
     <Modal :show="cartVisible && (order.products.length > 0)" @close="close">
         <div class="p-6">
             <h2 class="text-xl font-medium text-gray-500 p-2">
-                Cart
+                {{ $t('ui.cart.title') }}
             </h2>
 
             <div>
@@ -44,7 +44,7 @@ const deleteProduct = (orderProduct) => {
                     </div>
                     <div>
                         <DangerButton @click="deleteProduct(orderProduct)" class="text-sm !px-2 !py-1">
-                            Remove
+                            {{ $t('ui.cart.remove') }}
                         </DangerButton>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ const deleteProduct = (orderProduct) => {
 
             <div class="mt-6 flex justify-end">
                 <SecondaryButton @click="close">
-                    Continue shopping
+                    {{ $t('ui.cart.close') }}
                 </SecondaryButton>
 
                 <LinkPrimaryButton
@@ -60,7 +60,7 @@ const deleteProduct = (orderProduct) => {
                     class="ms-3"
                     @click=""
                 >
-                    Proceed to checkout
+                    {{ $t('ui.cart.checkout') }}
                 </LinkPrimaryButton>
             </div>
         </div>

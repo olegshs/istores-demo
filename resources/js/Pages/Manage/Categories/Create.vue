@@ -10,7 +10,7 @@ import CategoryCreateForm from "./Partials/CategoryCreateForm.vue";
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Create Category
+                {{ $t('ui.categories.create') }}
             </h2>
         </template>
 
