@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class StoreService
 {
@@ -37,25 +38,44 @@ class StoreService
 
     public function getStoreById(int $storeId): ?Store
     {
-        $store = $this->userService->getUserById($storeId);
-        if (!$store) {
+        return Cache::remember(
+            $this->getStoreByIdCacheKey($storeId),
+            now()->addMinutes(10),
+            fn() => $this->loadStoreById($storeId)
+        );
+    }
+
+    public function getStoreByIdCacheClear(int $storeId): void
+    {
+        Cache::forget($this->getStoreByIdCacheKey($storeId));
+    }
+
+    private function getStoreByIdCacheKey(int $storeId): string
+    {
+        return "StoreService.StoreById.{$storeId}";
+    }
+
+    private function loadStoreById(int $storeId): ?Store
+    {
+        $user = $this->userService->getUserById($storeId);
+        if (!$user) {
             return null;
         }
 
         $categories = $this->categoryService
             ->orderBy('name')
-            ->getCategoryListByStoreId($store->id)
-            ->map(function (Category $category) use ($store) {
-                $category['products_count'] = $this->productService->getProductCountByStoreId($store->id, [$category->id]);
+            ->getCategoryListByStoreId($user->id)
+            ->map(function (Category $category) use ($user) {
+                $category['products_count'] = $this->productService->getProductCountByStoreId($user->id, [$category->id]);
                 return $category;
             })
             ->all();
 
-        $data = new Store();
-        $data->setId($store->id);
-        $data->setInfo($store->toArray());
-        $data->setCategories($categories);
+        $store = new Store();
+        $store->setId($user->id);
+        $store->setInfo($user->toArray());
+        $store->setCategories($categories);
 
-        return $data;
+        return $store;
     }
 }

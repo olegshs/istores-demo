@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\CategoryCreated;
+use App\Events\CategoryDeleted;
+use App\Events\CategoryUpdated;
 use App\Models\Category;
 use App\Services\Traits\PagingTrait;
 use App\Services\Traits\SortingTrait;
@@ -95,6 +98,8 @@ class CategoryService
         $category->store_id = $storeId;
         $category->save();
 
+        CategoryCreated::dispatch($category);
+
         return $category;
     }
 
@@ -107,6 +112,8 @@ class CategoryService
     {
         $category->fill($data);
         $category->save();
+
+        CategoryUpdated::dispatch($category);
     }
 
     /**
@@ -116,5 +123,7 @@ class CategoryService
     public function deleteCategory(Category $category): void
     {
         $category->delete();
+
+        CategoryDeleted::dispatch($category);
     }
 }

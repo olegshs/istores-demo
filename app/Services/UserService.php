@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\UserCreated;
+use App\Events\UserDeleted;
+use App\Events\UserUpdated;
 use App\Models\User;
 use App\Services\Exceptions\UserNotFoundException;
 use App\Services\Traits\PagingTrait;
@@ -90,6 +93,8 @@ class UserService
         $user->fill($data);
         $user->save();
 
+        UserCreated::dispatch($user);
+
         return $user;
     }
 
@@ -107,6 +112,8 @@ class UserService
         $user->fill($data);
         $user->save();
 
+        UserUpdated::dispatch($user);
+
         return $user;
     }
 
@@ -119,6 +126,8 @@ class UserService
     {
         $user = $this->getUserByIdOrFail($userId);
         $user->delete();
+
+        UserDeleted::dispatch($user);
 
         return $user;
     }

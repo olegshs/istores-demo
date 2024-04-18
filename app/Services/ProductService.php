@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\ProductCreated;
+use App\Events\ProductDeleted;
+use App\Events\ProductUpdated;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\Traits\PagingTrait;
@@ -116,6 +119,8 @@ class ProductService
         $product->store_id = $storeId;
         $product->save();
 
+        ProductCreated::dispatch($product);
+
         return $product;
     }
 
@@ -128,6 +133,8 @@ class ProductService
     {
         $product->fill($data);
         $product->save();
+
+        ProductUpdated::dispatch($product);
     }
 
     /**
@@ -137,6 +144,8 @@ class ProductService
     public function deleteProduct(Product $product): void
     {
         $product->delete();
+
+        ProductDeleted::dispatch($product);
     }
 
     /**
