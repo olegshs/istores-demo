@@ -22,7 +22,7 @@ class StoreService
     }
 
     /**
-     * @return Collection|self[]
+     * @return Collection|Store[]
      */
     public function getStoreList(): Collection|array
     {
