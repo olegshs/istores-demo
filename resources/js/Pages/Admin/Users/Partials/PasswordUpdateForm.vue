@@ -35,11 +35,11 @@ const updatePassword = () => {
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900">
-                {{ $t('ui.user.password.title') }}
+                {{ $t('ui.users.password.title') }}
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ $t('ui.user.password.description') }}
+                {{ $t('ui.users.password.description') }}
             </p>
         </header>
 

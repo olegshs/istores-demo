@@ -7,11 +7,13 @@ import HeadColumn from "@/Components/Table/HeadColumn.vue";
 import TableBody from "@/Components/Table/TableBody.vue";
 import Row from "@/Components/Table/Row.vue";
 import Column from "@/Components/Table/Column.vue";
-import LinkButton from "@/Components/LinkButton.vue";
-import DangerButton from "@/Components/DangerButton.vue";
+import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 import Modal from "@/Components/Modal.vue";
 import Pagination from "@/Components/Pagination.vue";
+import Price from "@/Components/Price.vue";
+import Text from "@/Components/Text.vue";
 
 const props = usePage().props;
 const products = props.products.data;
@@ -75,22 +77,23 @@ const closeModal = () => {
                     {{ product.slug }}
                 </Column>
                 <Column>
-                    {{ product.name }}
+                    <Text :content="product.name"/>
                 </Column>
                 <Column class="hidden lg:table-cell">
-                    {{ product.description }}
+                    <Text :content="product.description"/>
                 </Column>
                 <column class="hidden lg:table-cell">
                     {{ product.categories.map(category => category.name).join(', ') }}
                 </column>
                 <Column>
-                    {{ product.price }}
+                    <Price :value="product.price"/>
                 </Column>
                 <Column class="w-1">
                     <div class="flex gap-1">
-                        <LinkButton :href="route('manage.products.edit', product.id)" class="text-sm !px-3 !py-1">
+                        <LinkPrimaryButton :href="route('manage.products.edit', product.id)"
+                                           class="text-sm !px-3 !py-1">
                             {{ $t('ui.edit') }}
-                        </LinkButton>
+                        </LinkPrimaryButton>
                         <DangerButton @click="confirmDeletion(product)" class="text-sm !px-3 !py-1">
                             {{ $t('ui.delete') }}
                         </DangerButton>

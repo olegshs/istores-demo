@@ -6,11 +6,10 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        {{--
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"/>
 
         <!-- Scripts -->
         @routes
@@ -18,7 +17,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
         @inertiaHead
     </head>
-    <body class="font-sans antialiased" dir="{{ app()->getLocale() == 'he' ? 'rtl' : 'ltr' }}">
+    <body class="font-sans antialiased text-base" dir="{{ app()->getLocale() == 'he' ? 'rtl' : 'ltr' }}">
         @inertia
     </body>
 </html>

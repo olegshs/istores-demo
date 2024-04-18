@@ -1,9 +1,10 @@
 <script setup>
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {useForm, usePage} from '@inertiajs/vue3';
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextArea from "@/Components/TextArea.vue";
+import SlugInput from "@/Components/SlugInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {formatDateTime} from "@/formatDateTime.js";
@@ -17,19 +18,6 @@ const form = useForm({
     name: product.name,
     description: product.description,
     price: product.price,
-});
-
-const slug = ref(form.slug);
-const cleanSlug = (value) => {
-    return value.toLowerCase()
-        .replace(/[^a-z0-9]/g, '-')
-        .replace(/-{2,}/g, '-')
-        .replace(/^-+/, '')
-        .replace(/-+$/, '');
-};
-watch(slug, value => {
-    slug.value = cleanSlug(value);
-    form.slug = slug.value;
 });
 
 const updateProduct = () => {
@@ -56,12 +44,10 @@ const updateProduct = () => {
         <div>
             <InputLabel for="product-slug-input" :value="$t('ui.slug')" required/>
 
-            <TextInput
+            <SlugInput
                 id="product-slug-input"
-                type="text"
                 class="mt-1 block w-full"
-                v-model="slug"
-                @blur="e => e.target.value = cleanSlug(e.target.value)"
+                v-model="form.slug"
                 required
             />
 

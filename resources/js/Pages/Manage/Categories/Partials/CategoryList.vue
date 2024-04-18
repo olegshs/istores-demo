@@ -7,11 +7,12 @@ import HeadColumn from "@/Components/Table/HeadColumn.vue";
 import TableBody from "@/Components/Table/TableBody.vue";
 import Row from "@/Components/Table/Row.vue";
 import Column from "@/Components/Table/Column.vue";
-import LinkButton from "@/Components/LinkButton.vue";
-import DangerButton from "@/Components/DangerButton.vue";
+import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 import Modal from "@/Components/Modal.vue";
 import Pagination from "@/Components/Pagination.vue";
+import Text from "@/Components/Text.vue";
 
 const props = usePage().props;
 const categories = props.categories.data;
@@ -69,16 +70,17 @@ const closeModal = () => {
                     {{ category.slug }}
                 </Column>
                 <Column>
-                    {{ category.name }}
+                    <Text :content="category.name"/>
                 </Column>
                 <Column class="hidden lg:table-cell">
-                    {{ category.description }}
+                    <Text :content="category.description"/>
                 </Column>
                 <Column class="w-1">
                     <div class="flex gap-1">
-                        <LinkButton :href="route('manage.categories.edit', category.id)" class="text-sm !px-3 !py-1">
+                        <LinkPrimaryButton :href="route('manage.categories.edit', category.id)"
+                                           class="text-sm !px-3 !py-1">
                             {{ $t('ui.edit') }}
-                        </LinkButton>
+                        </LinkPrimaryButton>
                         <DangerButton @click="confirmDeletion(category)" class="text-sm !px-3 !py-1">
                             {{ $t('ui.delete') }}
                         </DangerButton>

@@ -54,7 +54,7 @@ const props = defineProps({
                         </Link>
                     </h2>
 
-                    <div class="flex gap-3">
+                    <div class="flex flex-wrap gap-3">
                         <h3>{{ $t('ui.stores.categories') }}:</h3>
                         <span v-for="category in store.categories" class="flex gap-1">
                             <Link :href="route('stores.show.category', [store.id, category.slug])"

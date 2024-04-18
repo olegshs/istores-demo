@@ -1,9 +1,9 @@
 <script setup>
-import {ref, watch} from "vue";
 import {useForm} from '@inertiajs/vue3';
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextArea from "@/Components/TextArea.vue";
+import SlugInput from "@/Components/SlugInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
@@ -19,20 +19,6 @@ const form = useForm({
     description: category.description,
 });
 
-const slug = ref(form.slug);
-const cleanSlug = (value) => {
-    return value.toLowerCase()
-        .replace(/[^a-z0-9]/g, '-')
-        .replace(/-{2,}/g, '-')
-        .replace(/^-+/, '')
-        .replace(/-+$/, '');
-};
-watch(slug, value => {
-    slug.value = cleanSlug(value);
-    form.slug = slug.value;
-});
-
-
 const createCategory = () => {
     form.post(route('manage.categories.store'), {
         preserveScroll: true,
@@ -45,11 +31,10 @@ const createCategory = () => {
         <div>
             <InputLabel for="category-slug-input" :value="$t('ui.slug')" required/>
 
-            <TextInput
+            <SlugInput
                 id="category-slug-input"
-                type="text"
                 class="mt-1 block w-full"
-                v-model="slug"
+                v-model="form.slug"
                 required
             />
 

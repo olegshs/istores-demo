@@ -68,7 +68,8 @@ const updateUser = () => {
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    dir="ltr"
+                    class="mt-1 block w-full rtl:text-right"
                     v-model="form.email"
                     required
                 />

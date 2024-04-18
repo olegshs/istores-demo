@@ -2,6 +2,7 @@
 import {ref, toRaw} from "vue";
 import {usePage} from '@inertiajs/vue3';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Text from "@/Components/Text.vue";
 
 const product = usePage().props.product;
 const allCategories = usePage().props.all_categories;
@@ -65,7 +66,7 @@ const save = () => {
                         </span>
                     </label>
                     <p class="mt-1 text-sm text-gray-600">
-                        {{ category.description }}
+                        <Text :content="category.description"/>
                     </p>
                 </div>
             </div>

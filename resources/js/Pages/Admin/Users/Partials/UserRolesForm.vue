@@ -2,6 +2,7 @@
 import {ref, toRaw} from "vue";
 import {usePage} from '@inertiajs/vue3';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Text from "@/Components/Text.vue";
 
 const user = usePage().props.user;
 const allRoles = usePage().props.all_roles;
@@ -48,7 +49,7 @@ const save = () => {
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900">
-                {{ $t('ui.user.roles') }}
+                {{ $t('ui.users.roles') }}
             </h2>
         </header>
 
@@ -64,7 +65,7 @@ const save = () => {
                         </span>
                     </label>
                     <p class="mt-1 text-sm text-gray-600">
-                        {{ role.description }}
+                        <Text :content="role.description"/>
                     </p>
                 </div>
             </div>

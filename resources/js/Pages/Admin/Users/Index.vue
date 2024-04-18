@@ -9,12 +9,11 @@ import HeadColumn from "@/Components/Table/HeadColumn.vue";
 import TableBody from "@/Components/Table/TableBody.vue";
 import Row from "@/Components/Table/Row.vue";
 import Column from "@/Components/Table/Column.vue";
-import LinkButton from "@/Components/LinkButton.vue";
-import DangerButton from "@/Components/DangerButton.vue";
+import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 import Modal from "@/Components/Modal.vue";
 import Pagination from "@/Components/Pagination.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
     users: Object,
@@ -104,7 +103,7 @@ const closeModal = () => {
                             <Column>
                                 {{ user.email }}
                             </Column>
-                            <Column>
+                            <Column dir="ltr" class="rtl:text-right">
                                 {{ format(parseISO(user.created_at), 'yyyy-MM-dd HH:mm:ss') }}
                             </Column>
                             <Column class="hidden lg:table-cell">
@@ -112,13 +111,15 @@ const closeModal = () => {
                             </Column>
                             <Column class="w-1">
                                 <div class="flex gap-1">
-                                    <PrimaryButton @click="switchStore(user.id)" :disabled="currentStore.id === user.id"
-                                                   class="text-sm !px-3 !py-1">
+                                    <SecondaryButton @click="switchStore(user.id)"
+                                                     :disabled="currentStore.id === user.id"
+                                                     class="text-sm !px-3 !py-1">
                                         {{ $t('ui.users.switch') }}
-                                    </PrimaryButton>
-                                    <LinkButton :href="route('admin.users.edit', user.id)" class="text-sm !px-3 !py-1">
+                                    </SecondaryButton>
+                                    <LinkPrimaryButton :href="route('admin.users.edit', user.id)"
+                                                       class="text-sm !px-3 !py-1">
                                         {{ $t('ui.edit') }}
-                                    </LinkButton>
+                                    </LinkPrimaryButton>
                                     <DangerButton @click="confirmUserDeletion(user)" class="text-sm !px-3 !py-1">
                                         {{ $t('ui.delete') }}
                                     </DangerButton>

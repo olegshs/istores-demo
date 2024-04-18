@@ -35,7 +35,7 @@ const deleteProduct = (orderProduct) => {
             </h2>
 
             <div>
-                <div v-for="orderProduct in order.products" class="flex items-center p-2 hover:bg-gray-100 border-b">
+                <div v-for="orderProduct in order.products" class="flex items-baseline p-2 hover:bg-gray-100 border-b">
                     <div class="flex-1">
                         {{ orderProduct.product.name }}
                     </div>

@@ -6,6 +6,10 @@ return [
     'login' => 'Log In',
     'logout' => 'Log Out',
     'profile' => 'Profile',
+    'password' => 'Password',
+    'remember_me' => 'Remember me',
+    'forgot_password' => 'Forgot your password?',
+    'already_registered' => 'Already registered?',
 
     'id' => 'ID',
     'slug' => 'Slug',

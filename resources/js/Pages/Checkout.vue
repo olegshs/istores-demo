@@ -59,12 +59,12 @@ const submitOrder = () => {
                 <div v-if="order.products.length > 0">
                     <div
                         v-for="orderProduct in order.products"
-                        class="flex flex-wrap items-center hover:bg-gray-100 py-2 lg:py-0 border-b"
+                        class="flex flex-wrap items-baseline hover:bg-gray-100 py-4 lg:py-2 border-b"
                     >
                         <div class="w-full p-2 lg:w-1/2">
                             {{ orderProduct.product.name }}
                         </div>
-                        <div class="w-full lg:w-1/2 flex items-center">
+                        <div class="w-full lg:w-1/2 flex items-baseline">
                             <div class="w-36 p-2 text-right">
                                 <TextInput
                                     type="number"
@@ -152,7 +152,8 @@ const submitOrder = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel for="order-details-address-input" :value="$t('ui.checkout.details.address')" required/>
+                        <InputLabel for="order-details-address-input" :value="$t('ui.checkout.details.address')"
+                                    required/>
 
                         <TextArea
                             id="order-details-address-input"
