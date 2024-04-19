@@ -135,7 +135,8 @@ const submitOrder = () => {
                         <TextInput
                             id="order-details-email-input"
                             type="email"
-                            class="mt-1 block w-full"
+                            dir="ltr"
+                            class="mt-1 block w-full rtl:text-right"
                             v-model="order.details.email"
                             required
                         />
@@ -146,7 +147,8 @@ const submitOrder = () => {
                         <TextInput
                             id="order-details-phone-input"
                             type="text"
-                            class="mt-1 block w-full"
+                            dir="ltr"
+                            class="mt-1 block w-full rtl:text-right"
                             v-model="order.details.phone"
                             required
                         />

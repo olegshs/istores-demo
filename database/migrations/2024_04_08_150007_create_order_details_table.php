@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('email');
             $table->string('phone');
             $table->string('address');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->unique(['order_id']);

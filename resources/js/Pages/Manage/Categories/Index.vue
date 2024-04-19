@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head title="Categories"/>
+    <Head :title="$t('ui.categories.title')"/>
 
     <AuthenticatedLayout>
         <template #header>

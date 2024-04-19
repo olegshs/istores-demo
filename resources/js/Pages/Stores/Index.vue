@@ -47,7 +47,7 @@ const props = defineProps({
 
         <main class="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 p-4 py-12">
             <div class="space-y-6">
-                <div v-for="store in stores" class="p-4 space-y-1 bg-white shadow rounded-lg">
+                <div v-for="store in stores" class="p-4 space-y-2 bg-white shadow rounded-lg">
                     <h2 class="text-lg font-semibold">
                         <Link :href="route('stores.show', store.id)" class="underline text-indigo-600">
                             {{ store.info.name }}
@@ -56,13 +56,15 @@ const props = defineProps({
 
                     <div class="flex flex-wrap gap-3">
                         <h3>{{ $t('ui.stores.categories') }}:</h3>
-                        <span v-for="category in store.categories" class="flex gap-1">
-                            <Link :href="route('stores.show.category', [store.id, category.slug])"
-                                  class="underline text-indigo-600">
-                                {{ category.name }}
-                            </Link>
-                            ({{ category.products_count }})
-                        </span>
+                        <div class="flex flex-1 flex-wrap gap-3 gap-y-1">
+                            <span v-for="category in store.categories" class="flex gap-1">
+                                <Link :href="route('stores.show.category', [store.id, category.slug])"
+                                      class="underline text-indigo-600">
+                                    {{ category.name }}
+                                </Link>
+                                ({{ category.products_count }})
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

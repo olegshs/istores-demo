@@ -60,6 +60,13 @@ return [
         ],
     ],
 
+    'orders' => [
+        'title' => 'Orders',
+        'order' => 'Order #:id',
+        'status' => 'Status',
+        'details' => 'Details',
+    ],
+
     'users' => [
         'title' => 'Users',
         'create' => 'Create User',
@@ -109,5 +116,7 @@ return [
             'title' => 'Pay',
             'card' => 'Pay with a credit card',
         ],
+        'thanks' => 'Thank you!',
+        'paid' => 'Order #:id has been successfully paid.',
     ],
 ];

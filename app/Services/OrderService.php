@@ -7,19 +7,69 @@ use App\Models\OrderDetails;
 use App\Models\OrderProduct;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use App\Services\Traits\PagingTrait;
+use App\Services\Traits\SortingTrait;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrderService
 {
-    public function getOrderById(int $orderId): ?Order
+    use SortingTrait;
+    use PagingTrait;
+
+    /**
+     * @param int $storeId
+     * @param OrderStatus[] $status
+     * @return int
+     */
+    public function getOrderCountByStoreId(int $storeId, array $status = []): int
+    {
+        return Order::query()
+            ->where('store_id', '=', $storeId)
+            ->whereIn('status', $status)
+            ->count();
+    }
+
+    /**
+     * @param int $storeId
+     * @param OrderStatus[] $status
+     * @param array $withRelations
+     * @return Collection|Order
+     */
+    public function getOrderListByStoreId(int $storeId, array $status = [], array $withRelations = []): Collection|array
+    {
+        $query = Order::query()
+            ->with($withRelations)
+            ->where('store_id', '=', $storeId)
+            ->whereIn('status', $status);
+
+        $this->addSorting($query);
+        $this->addPaging($query);
+
+        return $query->get();
+    }
+
+    /**
+     * @param int $orderId
+     * @param array $withRelations
+     * @return Order|null
+     */
+    public function getOrderById(int $orderId, array $withRelations = []): ?Order
     {
         /** @var Order $order */
         $order = Order::query()
+            ->with($withRelations)
             ->find($orderId);
 
         return $order;
     }
 
+    /**
+     * @param int $storeId
+     * @param string $sessionId
+     * @param OrderStatus $status
+     * @param array $withRelations
+     * @return Order|null
+     */
     public function getOrderBySessionId(int $storeId, string $sessionId, OrderStatus $status, array $withRelations = []): ?Order
     {
         /** @var Order $order */
@@ -34,6 +84,13 @@ class OrderService
         return $order;
     }
 
+    /**
+     * @param int $storeId
+     * @param string $sessionId
+     * @param OrderStatus $status
+     * @param array $withRelations
+     * @return Order
+     */
     public function getOrNewOrderBySessionId(int $storeId, string $sessionId, OrderStatus $status, array $withRelations = []): Order
     {
         $order = $this->getOrderBySessionId($storeId, $sessionId, $status, $withRelations);
@@ -127,12 +184,21 @@ class OrderService
         return $orderProduct;
     }
 
+    /**
+     * @param OrderProduct $orderProduct
+     * @param array $data
+     * @return void
+     */
     public function updateOrderProduct(OrderProduct $orderProduct, array $data): void
     {
         $orderProduct->fill($data);
         $orderProduct->save();
     }
 
+    /**
+     * @param OrderProduct $orderProduct
+     * @return void
+     */
     public function deleteOrderProduct(OrderProduct $orderProduct): void
     {
         $orderProduct->delete();

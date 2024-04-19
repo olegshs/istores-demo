@@ -47,18 +47,17 @@ const store = usePage().props.store;
 
             <div class="border-t">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex flex-1 gap-6 -my-px">
-                            <NavLink v-for="category in store.categories"
-                                     :href="route('stores.show.category', [store.id, category.slug])"
-                                     :active="route().current('stores.show.category', [store.id, category.slug])">
-                                {{ category.name }}
+                    <div class="flex flex-wrap flex-1 gap-6 gap-y-0 -my-px">
+                        <NavLink v-for="category in store.categories"
+                                 :href="route('stores.show.category', [store.id, category.slug])"
+                                 :active="route().current('stores.show.category', [store.id, category.slug])"
+                                 class="h-16">
+                            {{ category.name }}
 
-                                <span class="text-gray-400 ms-1">
-                                    ({{ category.products_count }})
-                                </span>
-                            </NavLink>
-                        </div>
+                            <span class="text-gray-400 ms-1">
+                                ({{ category.products_count }})
+                            </span>
+                        </NavLink>
                     </div>
                 </div>
             </div>

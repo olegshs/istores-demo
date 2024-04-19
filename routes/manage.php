@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Manage\CategoryController;
+use App\Http\Controllers\Manage\OrderController;
 use App\Http\Controllers\Manage\ProductCategoryController;
 use App\Http\Controllers\Manage\ProductController;
 use App\Models\Category;
@@ -80,5 +81,10 @@ Route::prefix('manage')
                         ->name('manage.products.categories.destroy');
                 });
             });
+        });
+
+        Route::prefix('/orders')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])
+                ->name('manage.orders.index');
         });
     });

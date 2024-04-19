@@ -18,7 +18,7 @@ class CheckoutRequest extends FormRequest
             'email' => ['required', 'email'],
             'phone' => ['required', 'string'],
             'address' => ['required', 'string'],
-            'comment' => ['required', 'string'],
+            'comment' => ['string'],
         ];
     }
 }
