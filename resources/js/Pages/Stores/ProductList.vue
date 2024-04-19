@@ -18,25 +18,17 @@ const props = defineProps({
 const store = props.store;
 const category = props.category;
 const order = props.order;
+const orderProducts = ref(order.products);
 const cartVisible = ref(false);
 
-let title = store.info.name;
-if (category) {
-    title = `${category.name} - ${title}`;
-}
+const title = category
+    ? `${category.name} - ${store.info.name}`
+    : store.info.name;
 
-const hasInCart = (product) => {
-    if (!order.products) {
-        return false;
-    }
-
-    for (const orderProduct of order.products) {
-        if (orderProduct.product.id === product.id) {
-            return true;
-        }
-    }
-    return false;
-};
+const hasInCart = (product) =>
+    Boolean(
+        orderProducts.value.find(p => p.product.id === product.id)
+    );
 
 const addToCart = (product) => {
     axios.post(
@@ -46,7 +38,7 @@ const addToCart = (product) => {
         },
     ).then(response => {
         const orderProduct = response.data;
-        order.products.push(orderProduct);
+        orderProducts.value.push(orderProduct);
         cartVisible.value = true;
     });
 };
@@ -55,7 +47,7 @@ const deleteOrderProduct = (orderProduct) => {
     axios.delete(
         route('orders.products.destroy', orderProduct.id),
     ).then(response => {
-        order.products = order.products.filter(p => p.id !== orderProduct.id);
+        orderProducts.value = orderProducts.value.filter(p => p.id !== orderProduct.id);
     });
 };
 
@@ -69,7 +61,8 @@ const closeCart = () => {
 
     <StoreLayout>
         <Minicart
-            :cartVisible="cartVisible"
+            :visible="cartVisible"
+            :order-products="orderProducts"
             @delete-product="deleteOrderProduct"
             @close="closeCart"
         />
@@ -80,7 +73,8 @@ const closeCart = () => {
             </div>
 
             <div class="flex flex-wrap gap-6">
-                <div v-for="product in products" class="flex flex-col p-4 space-y-3 bg-white shadow rounded-lg w-full sm:w-64">
+                <div v-for="product in products"
+                     class="flex flex-col p-4 space-y-3 bg-white shadow rounded-lg w-full sm:w-64">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#cccccc" viewBox="0 0 350 350">
                             <path

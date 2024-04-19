@@ -7,7 +7,8 @@ import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import Price from "@/Components/Price.vue";
 
 const props = defineProps({
-    cartVisible: Boolean,
+    visible: Boolean,
+    orderProducts: Array,
 });
 
 const emit = defineEmits([
@@ -20,7 +21,6 @@ const close = () => {
 };
 
 const store = usePage().props.store;
-const order = usePage().props.order;
 
 const deleteProduct = (orderProduct) => {
     emit('deleteProduct', orderProduct);
@@ -28,14 +28,14 @@ const deleteProduct = (orderProduct) => {
 </script>
 
 <template>
-    <Modal :show="cartVisible && (order.products.length > 0)" @close="close">
+    <Modal :show="visible && (orderProducts.length > 0)" @close="close">
         <div class="p-6">
             <h2 class="text-xl font-medium text-gray-500 p-2">
                 {{ $t('ui.cart.title') }}
             </h2>
 
             <div>
-                <div v-for="orderProduct in order.products" class="flex items-baseline p-2 hover:bg-gray-100 border-b">
+                <div v-for="orderProduct in orderProducts" class="flex items-baseline p-2 hover:bg-gray-100 border-b">
                     <div class="flex-1">
                         {{ orderProduct.product.name }}
                     </div>
@@ -58,7 +58,6 @@ const deleteProduct = (orderProduct) => {
                 <LinkPrimaryButton
                     :href="route('stores.cart.checkout', store.id)"
                     class="ms-3"
-                    @click=""
                 >
                     {{ $t('ui.cart.checkout') }}
                 </LinkPrimaryButton>
