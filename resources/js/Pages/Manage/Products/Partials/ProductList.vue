@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import {useForm, usePage} from '@inertiajs/vue3';
+import {router, usePage} from '@inertiajs/vue3';
 import Table from "@/Components/Table/Table.vue";
 import TableHead from "@/Components/Table/TableHead.vue";
 import HeadColumn from "@/Components/Table/HeadColumn.vue";
@@ -10,31 +10,37 @@ import Column from "@/Components/Table/Column.vue";
 import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
-import Modal from "@/Components/Modal.vue";
-import Pagination from "@/Components/Pagination.vue";
 import Price from "@/Components/Price.vue";
 import Text from "@/Components/Text.vue";
+import Modal from "@/Components/Modal.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 const props = usePage().props;
 const products = props.products.data;
 const total = props.products.total;
 
 let productToDelete = null;
-let confirmingDeletion = ref(false);
+const confirmingDeletion = ref(false);
+const deleting = ref(false);
 
 const confirmDeletion = (product) => {
     productToDelete = product;
     confirmingDeletion.value = true;
 };
 
-const deleteForm = useForm({});
-
 const deleteProduct = () => {
-    deleteForm.delete(route('manage.products.destroy', productToDelete.id), {
+    deleting.value = true;
+
+    router.delete(route('manage.products.destroy', productToDelete.id), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onFinish: () => deleteForm.reset(),
-    })
+        preserveState: false,
+        onSuccess: () => {
+            closeModal();
+        },
+        onFinish: () => {
+            deleting.value = false;
+        }
+    });
 };
 
 const closeModal = () => {
@@ -123,8 +129,8 @@ const closeModal = () => {
 
                 <DangerButton
                     class="ms-3"
-                    :class="{ 'opacity-25': deleteForm.processing }"
-                    :disabled="deleteForm.processing"
+                    :class="{ 'opacity-25': deleting }"
+                    :disabled="deleting"
                     @click="deleteProduct"
                 >
                     {{ $t('ui.products.delete') }}

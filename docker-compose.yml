@@ -12,6 +12,7 @@ services:
         depends_on:
             - mysql
             - redis
+        restart: unless-stopped
 
     mysql:
         container_name: demo-mysql
@@ -25,6 +26,7 @@ services:
             - "127.0.0.1:8010:3306"
         volumes:
             - ./storage/mysql:/var/lib/mysql
+        restart: unless-stopped
 
     redis:
         container_name: demo-redis
@@ -33,3 +35,4 @@ services:
             - "127.0.0.1:8020:6379"
         volumes:
             - ./storage/redis:/data
+        restart: unless-stopped

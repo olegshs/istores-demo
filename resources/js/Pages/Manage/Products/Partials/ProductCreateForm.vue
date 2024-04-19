@@ -8,10 +8,10 @@ import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const product = {
-    slug: null,
-    name: null,
-    description: null,
-    price: null,
+    slug: '',
+    name: '',
+    description: '',
+    price: '',
 };
 
 const form = useForm({
@@ -75,6 +75,7 @@ const createProduct = () => {
             <TextInput
                 id="product-price-input"
                 type="number"
+                min="0"
                 step=".01"
                 class="mt-1 block w-full"
                 v-model="form.price"

@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import {useForm, usePage} from '@inertiajs/vue3';
+import {router, usePage} from '@inertiajs/vue3';
 import Table from "@/Components/Table/Table.vue";
 import TableHead from "@/Components/Table/TableHead.vue";
 import HeadColumn from "@/Components/Table/HeadColumn.vue";
@@ -10,30 +10,36 @@ import Column from "@/Components/Table/Column.vue";
 import LinkPrimaryButton from "@/Components/LinkPrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
+import Text from "@/Components/Text.vue";
 import Modal from "@/Components/Modal.vue";
 import Pagination from "@/Components/Pagination.vue";
-import Text from "@/Components/Text.vue";
 
 const props = usePage().props;
 const categories = props.categories.data;
 const total = props.categories.total;
 
 let categoryToDelete = null;
-let confirmingDeletion = ref(false);
+const confirmingDeletion = ref(false);
+const deleting = ref(false);
 
 const confirmDeletion = (category) => {
     categoryToDelete = category;
     confirmingDeletion.value = true;
 };
 
-const deleteForm = useForm({});
-
 const deleteCategory = () => {
-    deleteForm.delete(route('manage.categories.destroy', categoryToDelete.id), {
+    deleting.value = true;
+
+    router.delete(route('manage.categories.destroy', categoryToDelete.id), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onFinish: () => deleteForm.reset(),
-    })
+        preserveState: false,
+        onSuccess: () => {
+            closeModal();
+        },
+        onFinish: () => {
+            deleting.value = false
+        }
+    });
 };
 
 const closeModal = () => {
@@ -110,8 +116,8 @@ const closeModal = () => {
 
                 <DangerButton
                     class="ms-3"
-                    :class="{ 'opacity-25': deleteForm.processing }"
-                    :disabled="deleteForm.processing"
+                    :class="{ 'opacity-25': deleting }"
+                    :disabled="deleting"
                     @click="deleteCategory"
                 >
                     {{ $t('ui.categories.delete') }}

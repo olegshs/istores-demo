@@ -2,13 +2,9 @@
 import TextInput from "@/Components/TextInput.vue";
 import {watch} from "vue";
 
-const props = defineProps({
-    id: String,
-    required: Boolean,
-});
-
 const model = defineModel({
     type: String,
+    required: true,
 });
 
 const clean = (value) =>
@@ -28,8 +24,6 @@ watch(model, (value) => {
 
 <template>
     <TextInput
-        :id="id"
-        :required="required"
         dir="ltr"
         class="rtl:text-right"
         v-model="model"

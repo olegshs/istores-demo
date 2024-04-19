@@ -26,6 +26,25 @@ class StoreService
      */
     public function getStoreList(): Collection|array
     {
+        return Cache::remember(
+            $this->getStoreListCacheKey(),
+            now()->addMinutes(10),
+            fn() => $this->loadStoreList()
+        );
+    }
+
+    public function getStoreListCacheClear(): void
+    {
+        Cache::forget($this->getStoreListCacheKey());
+    }
+
+    private function getStoreListCacheKey(): string
+    {
+        return 'StoreService.StoreList';
+    }
+
+    private function loadStoreList(): Collection
+    {
         $usersWithProducts = User::query()
             ->whereHas('products')
             ->orderBy('name')
@@ -36,6 +55,10 @@ class StoreService
         );
     }
 
+    /**
+     * @param int $storeId
+     * @return Store|null
+     */
     public function getStoreById(int $storeId): ?Store
     {
         return Cache::remember(
@@ -48,6 +71,8 @@ class StoreService
     public function getStoreByIdCacheClear(int $storeId): void
     {
         Cache::forget($this->getStoreByIdCacheKey($storeId));
+
+        $this->getStoreListCacheClear();
     }
 
     private function getStoreByIdCacheKey(int $storeId): string

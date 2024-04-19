@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {format, parseISO} from "date-fns";
-import {Head, useForm, usePage} from '@inertiajs/vue3';
+import {Head, router, usePage} from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Table from "@/Components/Table/Table.vue";
 import TableHead from "@/Components/Table/TableHead.vue";
@@ -33,26 +33,32 @@ const users = props.users.data;
 const total = props.users.total;
 
 let userToDelete = null;
-const confirmingUserDeletion = ref(false);
+const confirmingDeletion = ref(false);
+const deleting = ref(false);
 
 const confirmUserDeletion = (user) => {
     userToDelete = user;
-    confirmingUserDeletion.value = true;
+    confirmingDeletion.value = true;
 };
 
-const userDeleteForm = useForm({});
-
 const deleteUser = () => {
-    userDeleteForm.delete(route('admin.users.destroy', userToDelete.id), {
+    deleting.value = true;
+
+    router.delete(route('admin.users.destroy', userToDelete.id), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onFinish: () => userDeleteForm.reset(),
+        preserveState: false,
+        onSuccess: () => {
+            closeModal();
+        },
+        onFinish: () => {
+            deleting.value = false;
+        }
     });
 };
 
 const closeModal = () => {
     userToDelete = null;
-    confirmingUserDeletion.value = false;
+    confirmingDeletion.value = false;
 };
 </script>
 
@@ -139,7 +145,7 @@ const closeModal = () => {
             </div>
         </div>
 
-        <Modal :show="confirmingUserDeletion" @close="closeModal">
+        <Modal :show="confirmingDeletion" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900">
                     {{ $t('ui.users.delete_confirm.text', {id: userToDelete.id}) }}
@@ -155,8 +161,8 @@ const closeModal = () => {
 
                     <DangerButton
                         class="ms-3"
-                        :class="{ 'opacity-25': userDeleteForm.processing }"
-                        :disabled="userDeleteForm.processing"
+                        :class="{ 'opacity-25': deleting }"
+                        :disabled="deleting"
                         @click="deleteUser"
                     >
                         {{ $t('ui.users.delete') }}

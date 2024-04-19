@@ -8,9 +8,9 @@ import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const category = {
-    slug: null,
-    name: null,
-    description: null,
+    slug: '',
+    name: '',
+    description: '',
 };
 
 const form = useForm({
